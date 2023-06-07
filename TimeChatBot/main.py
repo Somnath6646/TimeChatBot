@@ -19,8 +19,6 @@ async def on_message(message):
         return
 
     if checkTimeRestriction():
-        await handleMessageEvent(message)
-    else:
         await message.delete()
         await message.channel.send(f"{message.author.mention}, you can only chat between 8PM IST and 10PM IST.", delete_after=5)
 
@@ -32,11 +30,5 @@ def checkTimeRestriction():
     allowed_end_time = now.replace(hour=22, minute=0, second=0, microsecond=0)
 
     return allowed_start_time <= now <= allowed_end_time
-
-async def handleMessageEvent(message):
-    if message.content.startswith("!"):
-        return
-
-    await message.channel.send(f"{message.author.mention}: {message.content}")
 
 bot.run(config.TOKEN)
